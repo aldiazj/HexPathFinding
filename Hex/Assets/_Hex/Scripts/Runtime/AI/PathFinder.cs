@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using Hex.Runtime.Level;
-using UnityEngine;
 
 namespace Hex.Runtime.AI
 {
     public class PathFinder: IPathFinder
     {
-        private static readonly Color OPEN_COLOR = Color.red;
-        private static readonly Color CLOSED_COLOR = Color.gray;
-
         public IList<ICell> FindPathOnMap(ICell cellStart, ICell cellEnd, IMap map)
         {
             List<ICell> toSearch = new List<ICell> { cellStart, };
@@ -29,8 +25,6 @@ namespace Hex.Runtime.AI
                 }
                 processed.Add(current);
                 toSearch.Remove(current);
-
-                current.SetColor(CLOSED_COLOR);
 
                 if (current == cellEnd)
                 {
@@ -79,7 +73,6 @@ namespace Hex.Runtime.AI
 
                     currentNeighbor.DistanceToTargetNode = currentNeighbor.GetDistanceTo(cellEnd);
                     toSearch.Add(currentNeighbor);
-                    currentNeighbor.SetColor(OPEN_COLOR);
                 }
             }
 

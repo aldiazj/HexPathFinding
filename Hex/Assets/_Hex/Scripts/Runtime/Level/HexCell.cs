@@ -10,6 +10,7 @@ namespace Hex.Runtime.Level
 
         [SerializeField] private SpriteRenderer spriteRenderer;
 
+        private int visibleQ;
         private Axial Coordinates { get; set; }
 
         private Action<ICell> onClicked;
@@ -22,7 +23,7 @@ namespace Hex.Runtime.Level
         public (int, int)[] Neighbors { get; private set; }
 
 
-        public void Init(Axial coordinates, Action<ICell> onCellClicked)
+        public void Init(Axial coordinates, Action<ICell> onCellClicked, int visibleQ)
         {
             Coordinates = coordinates;
             Neighbors = new[]
@@ -34,6 +35,7 @@ namespace Hex.Runtime.Level
                 (coordinates.Q - 1, coordinates.R + 1),
                 (coordinates.Q, coordinates.R + 1),
             };
+            this.visibleQ = visibleQ;
             onClicked = onCellClicked;
             transform.position = coordinates.GetCartesianPos(transform.localScale.x / 2 + SPACING);
         }
@@ -52,6 +54,11 @@ namespace Hex.Runtime.Level
         private void OnMouseDown()
         {
             onClicked?.Invoke(this);
+        }
+
+        public override string ToString()
+        {
+            return $"{visibleQ},{Coordinates.R}";
         }
     }
 }

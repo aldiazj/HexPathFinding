@@ -12,7 +12,7 @@ namespace Hex.Runtime.Level
         public float TotalCost { get; }
         public (int, int)[] Neighbors { get; }
         public ICell Connection { get; set; }
-        public void Init(Axial coordinates, Action<ICell> onCellClicked);
+        public void Init(Axial coordinates, Action<ICell> onCellClicked, int visibleQ);
         public void SetColor(Color newColor);
         public float GetDistanceTo(ICell targetCell);
     }
